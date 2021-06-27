@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/cmzluna/TestDrivenDev#readme",
   "devDependencies": {
-    "jest": "^27.0.5"
+    "jest": "^27.0.5",
+    "node-fetch": "^2.6.1"
   }
 }

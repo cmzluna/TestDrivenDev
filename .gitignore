@@ -1,1 +1,5 @@
 node_modules
+
+#api key
+# https://hackernoon.com/how-to-use-environment-variables-keep-your-secret-keys-safe-secure-8b1a7877d69c
+.env

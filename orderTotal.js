@@ -1,6 +1,8 @@
 // using this API to retrieve VAT info in Europe
 // https://vatlayer.com
 
+const fetch = require("node-fetch");
+
 someOrder = {
   items: [
     { name: "Dragon food", price: 8, quantity: 8 },
@@ -9,7 +11,9 @@ someOrder = {
   ],
 };
 
+/*
 makeOrder = (order) => {
+  // inside of here would be the fetch() request
   totalNormalItems = order.items
     .filter((x) => !x.shipping)
     .reduce((prev, cur) => prev + cur.quantity * cur.price, 0);
@@ -18,7 +22,9 @@ makeOrder = (order) => {
   return totalNormalItems + shipping;
 };
 
-const fetch = require("node-fetch");
+let result = makeOrder(someOrder);
+result;
+*/
 
 // About fetch API
 // https://attacomsian.com/blog/javascript-fetch-html-response
@@ -30,10 +36,18 @@ const fetch = require("node-fetch");
 // Authorisation header won't work with this API
 let key = process.env.VAT_API_KEY;
 
-let arr = [];
-
 let result = fetch(
   `http://apilayer.net/api/rate?access_key=${key}&country_code=GB`
 )
   .then((response) => response.json())
-  .then((data) => console.log(data));
+  .then((data) => console.log(data.standard_rate));
+
+function orderTotal(fetch, order) {
+  fetch(`http://apilayer.net/api/rate?access_key=${key}&country_code=GB`);
+
+  return Promise.resolve(
+    order.items.reduce((prev, cur) => cur.price * (cur.quantity || 1) + prev, 0)
+  );
+}
+
+module.exports = orderTotal;
